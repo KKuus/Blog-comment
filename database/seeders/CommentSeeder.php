@@ -18,7 +18,12 @@ class CommentSeeder extends Seeder
         $posts = Post::select('id')->get();
         $users = User::select('id')->get();
         foreach($posts as $post){
-            $comments = Comment::factory(rand(0,20))->make(['post_id' => $post->id]);
+            $comments = Comment::factory(rand(0, 20))->make([
+                'post_id' => $post->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            
             foreach($comments as $comment){
                 $comment->user_id = $users->random()->id;
                 $comment->save();
@@ -26,3 +31,4 @@ class CommentSeeder extends Seeder
         }
     }
 }
+
